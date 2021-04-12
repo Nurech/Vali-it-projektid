@@ -12,7 +12,7 @@ public class Test1 {
 //    funktsioon peab tagastama
 //		true: kui sisend parameeter jagub 3 või 7 (aga ei jagu mõlema numbriga)
 //      false: kui sisend parameeter ei jagu 3 ega 7 või jagub mõlema numbriga
-
+// test
     // ÜL2
     // lisa x igale array elemendile
     // Näiteks
