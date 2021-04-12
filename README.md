@@ -1,4 +1,6 @@
-# vali-it
+# Vali-IT!
+
+**My tasks**: https://github.com/Nurech/Vali-it-projektid/tree/master/src/main/java/ee/bcs/valiit/tasks
 
 ## Slaidid
 ### Kõik slaidid
