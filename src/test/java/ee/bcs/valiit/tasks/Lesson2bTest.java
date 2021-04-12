@@ -14,15 +14,15 @@ class Lesson2bTest {
         assertArrayEquals(expected, answer);
     }
 
-    @Test
-    void generateArray() {
-        int[] answer1 = Lesson2b.generateArray(0);
-        int[] expected1 = {};
-        assertArrayEquals(expected1, answer1);
-        int[] answer2 = Lesson2b.generateArray(6);
-        int[] expected2 = {1, 2, 3, 4, 5, 6};
-        assertArrayEquals(expected2, answer2);
-    }
+//    @Test
+//    void generateArray() {
+//        int[] answer1 = Lesson2b.generateArray(0);
+//        int[] expected1 = {};
+//        assertArrayEquals(expected1, answer1);
+//        int[] answer2 = Lesson2b.generateArray(6);
+//        int[] expected2 = {1, 2, 3, 4, 5, 6};
+//        assertArrayEquals(expected2, answer2);
+//    }
 
     @Test
     void decreasingArray() {
