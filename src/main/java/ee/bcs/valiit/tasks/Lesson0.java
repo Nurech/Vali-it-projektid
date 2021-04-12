@@ -1,5 +1,6 @@
 package ee.bcs.valiit.tasks;
 //test
+//test
 
 public class Lesson0 {
     public static void main(String[] args) {
