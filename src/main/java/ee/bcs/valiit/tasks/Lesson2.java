@@ -2,34 +2,35 @@ package ee.bcs.valiit.tasks;
 
 import java.util.Arrays;
 
+
 public class Lesson2 {
 
     // send, ask back backwards
     public static void main(String[] args) {
         // ex #1 reverseArray
-        reverseArray(new int[]{1, 2, 3, 4});
-        System.out.println(Arrays.toString(reverseArray(new int[]{1, 2, 3, 4})));
-
-        // ex #2 evenNumber
-        System.out.println(Arrays.toString(evenNumbers(5)));
-
-        //ex #3 minArrayNr
-        System.out.println(min(new int[]{2, 4, 5, -2, -1}));
-
-        //ex #4 maxArrayNr
-        System.out.println(max(new int[]{2, 4, 5, -2, -1}));
-
-        //ex #5 sumArrayNr
-        System.out.println(sum(new int[]{2, 4, 5, -2, -1}));
+//        reverseArray(new int[]{1, 2, 3, 4});
+//        System.out.println(Arrays.toString(reverseArray(new int[]{1, 2, 3, 4})));
+//
+//        // ex #2 evenNumber
+//        System.out.println(Arrays.toString(evenNumbers(5)));
+//
+//        //ex #3 minArrayNr
+//        System.out.println(min(new int[]{2, 4, 5, -2, -1}));
+//
+//        //ex #4 maxArrayNr
+//        System.out.println(max(new int[]{2, 4, 5, -2, -1}));
+//
+//        //ex #5 sumArrayNr
+//        System.out.println(sum(new int[]{2, 4, 5, -2, -1}));
 
         //ex #6 multiplyArray
         System.out.println(multiplyTable(5, 5));
 
-        //ex #7 fibonacci
-        System.out.println(fibonacci(15));
-
-        //ex #8 sequence3
-        System.out.println(sequence3n(1, 10));
+//        //ex #7 fibonacci
+//        System.out.println(fibonacci(15));
+//
+//        //ex #8 sequence3
+//        System.out.println(sequence3n(1, 10));
 
     }
 
@@ -139,23 +140,23 @@ public class Lesson2 {
     //  et saada taebli kuju
     // TODO 5 võrdle ridu. Kas on mingi seaduspärasus ridade vahel,
     // mis on ja mis võiks olla. Äkki tuleb mõni idee
-
-    public static String multiplyTable(int x, int y) {
-        // x = rows
-        int[] lineArray = new int[x];
-        //1 row multiplier = 1, 2 row multiplier will be 2 etc.
-        int multiplier = 1;
-        // loop 5x5 times
-        for (int j = 0; j < y; j++) {
-            for (int i = 0; i < lineArray.length; i++) {
-                lineArray[i] = (i + 1) * multiplier;
-            }
-            multiplier++;
-            System.out.println(Arrays.toString(lineArray));
-        }
-        // it needs to return something. Why not "" (nothing)
-        return "";
-    }
+//
+//    public static String multiplyTable(int x, int y) {
+//        // x = rows
+//        int[] lineArray = new int[x];
+//        //1 row multiplier = 1, 2 row multiplier will be 2 etc.
+//        int multiplier = 1;
+//        // loop 5x5 times
+//        for (int j = 0; j < y; j++) {
+//            for (int i = 0; i < lineArray.length; i++) {
+//                lineArray[i] = (i + 1) * multiplier;
+//            }
+//            multiplier++;
+//            System.out.println(Arrays.toString(lineArray));
+//        }
+//        // it needs to return something. Why not "" (nothing)
+//        return "";
+//    }
 
     //    Assertions.assertEquals(0, Lesson2.fibonacci(0));
 //        Assertions.assertEquals(1, Lesson2.fibonacci(1));
@@ -217,6 +218,36 @@ public class Lesson2 {
 
     // none of the print is necessary
 
+    public static int[][] multiplyTable(int x, int y) {
+
+        int i = 0;
+        int j = 0;
+        int m = 1;
+        int n = 1;
+
+        int[][] array = new int[x][y];
+        for (i = 0; i < array.length; i++) {
+            for (j = 0; j < array.length; j++) {
+                array[i][j] = m * n;
+                m++;
+            }
+            m = 1;
+            n++;
+
+        }
+        // test print char array contents
+        for (int o = 0; o < array.length; o++) {
+            for (int p = 0; p < array.length; p++) {
+                System.out.print(array[o][p] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println(Arrays.deepToString(array));
+        return array;
+    }
+
+
     public static int sequence3n(int x, int y) {
         System.out.println("*******  START! NEW TEST! *******");
         int temp = 0;
@@ -227,10 +258,10 @@ public class Lesson2 {
         return temp;
     }
 
-    public static int getSqnLength (int x){
+    public static int getSqnLength(int x) {
         int sqnLen = 1;
         while (x != 1) {
-            if (x % 2 == 0){
+            if (x % 2 == 0) {
                 System.out.println("Doing = " + x + "/2");
                 x = x / 2;
             } else {
@@ -242,7 +273,7 @@ public class Lesson2 {
         System.out.println("END! For sequence 3n = " + sqnLen);
         return sqnLen;
     }
-    }
+}
 
 
 /*    public static int sequence3n(int x, int y) {
