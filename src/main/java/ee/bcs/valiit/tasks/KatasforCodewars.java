@@ -2,7 +2,7 @@ package ee.bcs.valiit.tasks;
 
 import java.util.Arrays;
 
-public class Katas {
+public class KatasforCodewars {
 
 
     public static void main(String[] args) {
@@ -143,7 +143,8 @@ public class Katas {
         // perfect square is multiplication of itself
         // i is size of one square side
         int i = 0;
-        for (i = 0; i * i <= s.length(); i++) {
+        while(i*i <= s.length()){
+            i++;
         }
         i--;
 
@@ -263,7 +264,8 @@ public class Katas {
 
         //read charArray with decoded message to string
         System.out.println(Arrays.toString(charArray));
-
-        return Arrays.toString(charArray);
+        String string = new String (charArray);
+        System.out.println("string:" + string);
+        return string.trim();
     }
 }
