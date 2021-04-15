@@ -12,8 +12,9 @@
 **Konsool, massiivid, tsüklid**:  https://drive.google.com/file/d/1-l1ZilB4tj-9_bO2cpxbuRkxYk38hQEF/view?usp=sharing  
 **Objektid**: https://drive.google.com/file/d/1oaEbMpp-qkast8t8e4OUrVRTCzANc_8M/view?usp=sharing  
 **GIT**: https://drive.google.com/file/d/1zOdxrJ2-oZfzfcaYi1Zg384GVY5gtN9V/view?usp=sharing  
-**Json, REST, Web**:  
-**Request Body, DTO**:  
+**Json, REST, Web**: https://drive.google.com/file/d/104cKKJn1jadK91TJJYN4BKAHh98zR0qJ/view?usp=sharing  
+**Request Body, DTO**: https://drive.google.com/file/d/1wqpUF4an_neP1ZYiqZDvhMtdLhGg9p4G/view?usp=sharing  
+**OOP, Exceptionid**: https://drive.google.com/file/d/1ApXt7__dEhLk7ae-qWLF95D7QV528BZK/view?usp=sharing  
 **SQL**:  
 **Architecture**:  
 **Liquibase**:  
