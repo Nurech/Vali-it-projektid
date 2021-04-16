@@ -15,20 +15,12 @@ public class AccountController {
 
     private HashMap<String, AccountDTO> account = new HashMap<String, AccountDTO>();
 
-    //check if account is present
-    public String checkIfAccountExists(String accountName) {
-        if (account.get(accountName) == null) {
-            return "Account not present";
-        }
-        return "Did your thing";
-    }
-
 
     // CREATE ACCOUNT
     // http://localhost:8080/createAccount
     @PostMapping("/createAccount")
     public String createAccount(@RequestBody AccountDTO createReq) {
-        if (account.get(checkIfAccountExists(createReq.getAccountnumber())) == null) {
+        if (account.get(createReq.getAccountnumber()) == null) {
             account.put(createReq.getAccountnumber(), createReq);
             return "Account added = " + createReq.getAccountnumber() + ", with balance of = " + createReq.getMoney();
         } else {
@@ -40,7 +32,7 @@ public class AccountController {
     // http://localhost:8080/depositMoney
     @PostMapping("/depositMoney")
     public String depositMoney(@RequestBody AccountDTO depositReq) {
-        if (account.get(checkIfAccountExists(depositReq.getAccountnumber())) == null) {
+        if (account.get(depositReq.getAccountnumber()) != null) {
             if (depositReq.getMoney() > 0) {
                 // currentBalance Object is get money from inserted accountnumber
                 AccountDTO currentBalance = account.get(depositReq.getAccountnumber());
@@ -68,50 +60,63 @@ public class AccountController {
     // http://localhost:8080/balance
     @GetMapping("/balance")
     public String getBalance(@RequestBody AccountDTO getBalanceReq) {
-        if (account.get(checkIfAccountExists(getBalanceReq.getAccountnumber())) == null) {
-            return "Account = " + account.get(getBalanceReq.getMoney());
+
+        if (account.get(getBalanceReq.getAccountnumber()) != null) {
+            return "Account = " + getBalanceReq.getAccountnumber() + " has = " + account.get(getBalanceReq.getAccountnumber()).getMoney();
         }
         return "No account";
     }
-}
+
+
+    // WITHDRAW REQUEST
+    // http://localhost:8080/withdrawMoney
+    @PostMapping("/withdrawMoney")
+    public String withdrawMoney(@RequestBody AccountDTO withdrawMoneyReq) {
+        if (account.get(withdrawMoneyReq.getAccountnumber()) != null) {
+            // currentBalance Object is get money from inserted accountnumber
+            AccountDTO currentBalance = account.get(withdrawMoneyReq.getAccountnumber());
+            // if input money if less than balance then allow withdraw
+            if (withdrawMoneyReq.getMoney() <= currentBalance.getMoney()) {
+                currentBalance.setMoney(currentBalance.getMoney() - withdrawMoneyReq.getMoney());
+                account.put(withdrawMoneyReq.getAccountnumber(), currentBalance);
+                return "Withdrew " + withdrawMoneyReq.getMoney() + " new balance is " + currentBalance.getMoney();
+            } else {
+                return "You can't withdraw that much. You have: " + currentBalance.getMoney();
+            }
+        }
+        return "Can't withdraw from an account which doesn't exist.";
+    }
+
+
+//    // TRANSFER REQUEST
+//    // http://localhost:8080/transferMoney
+//    @PostMapping("/transferMoney")
+//    public String transferMoney(@RequestBody AccountDTO transferMoneyReq) {
 //
-//    //WITHDRAW REQUEST
-//    //http://localhost:8080/tasks/Lesson4/withdrawMoney
-//    @PostMapping("/tasks/Lesson4/withdrawMoney")
-//    public String withdrawMoney(@RequestBody Lesson4 withdrawMoneyRequest) {
-//        if (account.get(checkIfAccountExists(withdrawMoneyRequest.getAccountName())) == null) {
-//            if (withdrawMoneyRequest.getMoney() <= (account.get(withdrawMoneyRequest.getAccountName()))) {
-//                double currentBalance = account.get(withdrawMoneyRequest.getAccountName());
-//                account.put(withdrawMoneyRequest.getAccountName(), currentBalance - withdrawMoneyRequest.getMoney());
-//                return "Old balance was = " + currentBalance + " withdrew " + withdrawMoneyRequest.getMoney() + " new balance is " + account.get(withdrawMoneyRequest.getAccountName());
-//            } else {
-//                return "You can't withdraw that much. You have: " + account.get(withdrawMoneyRequest.getAccountName());
-//            }
-//        }
-//        return "Can't withdraw from an account which doesn't exist.";
-//    }
+//        if (account.get(transferMoneyReq.getAccountnumber()) != null) {
+//            AccountDTO account1Balance = account.get(transferMoneyReq.getAccountnumber());
+//            AccountDTO account2Balance = account.get(transferMoneyReq.getAccountnumber2());
+//            // if account 1 balance has enough funds then do transfer
+//            if (account.get(transferMoneyReq.getMoney() <= account))
+//            if (ac)
 //
+//            if (account.get(transferMoneyReq.getAccountnumber()))
 //
-//    //TRANSFER REQUEST
-//    //http://localhost:8080/tasks/Lesson4/transferMoney
-//    @PostMapping("/tasks/Lesson4/transferMoney")
-//    public String transferMoney(@RequestBody Lesson4 transferMoneyRequest) {
-//
-//        if ((account.get(transferMoneyRequest.getFromAccount()) >= transferMoneyRequest.getMoney())) {
 //            // take current balance
-//            double account2Balance = account.get(transferMoneyRequest.getFromAccount());
-//            double balance = account.get(transferMoneyRequest.getAccountName());
+//            double account2Balance = account.get(transferMoneyReq.getFromAccount());
+//            double balance = account.get(transferMoneyReq.getAccountName());
 //            // update balance
-//            double deductedMoney = account2Balance - transferMoneyRequest.getMoney();
-//            double addedMoney = balance + transferMoneyRequest.getMoney();
+//            double deductedMoney = account2Balance - transferMoneyReq.getMoney();
+//            double addedMoney = balance + transferMoneyReq.getMoney();
 //            // put new balances back for both
-//            account.put(transferMoneyRequest.getFromAccount(), addedMoney);
-//            account.put(transferMoneyRequest.getAccountName(), deductedMoney);
-//            return "Transferred from " + transferMoneyRequest.getFromAccount() + " to " + transferMoneyRequest.getAccountName() + ", " + transferMoneyRequest.getMoney() + "\n" +
-//                    transferMoneyRequest.getFromAccount() + " is " + account.get(transferMoneyRequest.getFromAccount()) + "\n" +
-//                    transferMoneyRequest.getAccountName() + " is " + account.get(transferMoneyRequest.getAccountName());
+//            account.put(transferMoneyReq.getFromAccount(), addedMoney);
+//            account.put(transferMoneyReq.getAccountName(), deductedMoney);
+//            return "Transferred from " + transferMoneyReq.getFromAccount() + " to " + transferMoneyReq.getAccountName() + ", " + transferMoneyReq.getMoney() + "\n" +
+//                    transferMoneyReq.getFromAccount() + " is " + account.get(transferMoneyReq.getFromAccount()) + "\n" +
+//                    transferMoneyReq.getAccountName() + " is " + account.get(transferMoneyReq.getAccountName());
 //        } else {
 //            return "Oops, you don't have that much money.";
 //        }
 //    }
+}
 

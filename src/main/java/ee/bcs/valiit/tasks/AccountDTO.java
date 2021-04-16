@@ -15,6 +15,7 @@ public class AccountDTO {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
 
     private String accountnumber;
+    private String accountnumber2;
     private double money;
     private boolean locked;
     private Long id;
@@ -40,6 +41,14 @@ public class AccountDTO {
 
     public String getAccountnumber() {
         return accountnumber;
+    }
+
+    public String getAccountnumber2() {
+        return accountnumber2;
+    }
+
+    public void setAccountnumber2(String accountnumber2) {
+        this.accountnumber2 = accountnumber2;
     }
 
     public void setAccountnumber(String accountnumber) {
