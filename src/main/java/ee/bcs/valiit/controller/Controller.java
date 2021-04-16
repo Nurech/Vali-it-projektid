@@ -14,14 +14,14 @@ import java.util.Arrays;
 @RestController
 public class Controller {
 
-    // PostMapping
-    // PutMapping
-    // DeleteMapping
-    @GetMapping("sample/hello-world/{nameInUrl}")
-    public String helloWorld(@PathVariable("nameInUrl") String name,
-                             @RequestParam("action") String action) {
-        return action + " " + name;
-    }
+//    // PostMapping
+//    // PutMapping
+//    // DeleteMapping
+//    @GetMapping("sample/hello-world/{nameInUrl}")
+//    public String helloWorld(@PathVariable("nameInUrl") String name,
+//                             @RequestParam("action") String action) {
+//        return action + " " + name;
+//    }
 
     // LESSON 1
 
