@@ -16,7 +16,7 @@ public class AccountDTO {
 
     private String accountnumber;
     private String accountnumber2;
-    private double money;
+    private double balance;
     private boolean locked;
     private Long id;
     private String address;
@@ -26,21 +26,26 @@ public class AccountDTO {
     private String password;
     private String email;
 
-
-    public AccountDTO(String accountnumber, String address, String phone, String firstname, String lastname, String password, String email, boolean locked, double money) {
+    public AccountDTO(String accountnumber, String accountnumber2, double balance, boolean locked, Long id, String address, String phone, String firstname, String lastname, String password, String email) {
         this.accountnumber = accountnumber;
+        this.accountnumber2 = accountnumber2;
+        this.balance = balance;
+        this.locked = locked;
+        this.id = id;
         this.address = address;
         this.phone = phone;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
         this.email = email;
-        this.locked = locked;
-        this.money = money;
     }
 
     public String getAccountnumber() {
         return accountnumber;
+    }
+
+    public void setAccountnumber(String accountnumber) {
+        this.accountnumber = accountnumber;
     }
 
     public String getAccountnumber2() {
@@ -51,8 +56,28 @@ public class AccountDTO {
         this.accountnumber2 = accountnumber2;
     }
 
-    public void setAccountnumber(String accountnumber) {
-        this.accountnumber = accountnumber;
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAddress() {
@@ -102,31 +127,6 @@ public class AccountDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }
 
 
