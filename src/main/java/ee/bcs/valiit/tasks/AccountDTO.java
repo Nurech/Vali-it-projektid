@@ -18,7 +18,7 @@ public class AccountDTO {
     private String accountnumber2;
     private double balance;
     private boolean locked;
-    private Long id;
+    private int account_id;
     private String address;
     private String phone;
     private String firstname;
@@ -26,19 +26,7 @@ public class AccountDTO {
     private String password;
     private String email;
 
-    public AccountDTO(String accountnumber, String accountnumber2, double balance, boolean locked, Long id, String address, String phone, String firstname, String lastname, String password, String email) {
-        this.accountnumber = accountnumber;
-        this.accountnumber2 = accountnumber2;
-        this.balance = balance;
-        this.locked = locked;
-        this.id = id;
-        this.address = address;
-        this.phone = phone;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.password = password;
-        this.email = email;
-    }
+
 
     public String getAccountnumber() {
         return accountnumber;
@@ -72,12 +60,12 @@ public class AccountDTO {
         this.locked = locked;
     }
 
-    public Long getId() {
-        return id;
+    public int getAccount_id() {
+        return account_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
     }
 
     public String getAddress() {
