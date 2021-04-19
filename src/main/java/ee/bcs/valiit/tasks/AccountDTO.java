@@ -1,18 +1,7 @@
 package ee.bcs.valiit.tasks;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class AccountDTO {
-
-    //JPA/Hibernate
-    //ModelMapper
-    //Jackson?
-    // Formats output date when this DTO is passed through JSON
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    // Allows dd/MM/yyyy date to be passed into GET request in JSON
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
 
     private String accountnumber;
     private String accountnumber2;
