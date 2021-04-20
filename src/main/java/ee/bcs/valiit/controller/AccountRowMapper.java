@@ -1,6 +1,6 @@
 package ee.bcs.valiit.controller;
 
-import ee.bcs.valiit.tasks.AccountDTO;
+import ee.bcs.valiit.dto.AccountDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

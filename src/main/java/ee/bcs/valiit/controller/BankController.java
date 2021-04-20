@@ -1,7 +1,7 @@
 package ee.bcs.valiit.controller;
 
-import ee.bcs.valiit.tasks.AccountDTO;
-import ee.bcs.valiit.tasks.TransactionDTO;
+import ee.bcs.valiit.dto.AccountDTO;
+import ee.bcs.valiit.dto.TransactionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class AccountController {
+public class BankController {
 
     @Autowired
     private NamedParameterJdbcTemplate jt;
