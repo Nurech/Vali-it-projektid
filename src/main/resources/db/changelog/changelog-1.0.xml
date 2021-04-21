@@ -2,7 +2,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1" author="Siim">
         <createTable tableName="author">
@@ -22,6 +22,7 @@
                 <constraints foreignKeyName="fk_book_author" references="author(id)"/>
             </column>
         </createTable>
+
     </changeSet>
     <changeSet id="2020-01-26 add employee" author="Siim Rebane">
         <createTable tableName="employee">
@@ -33,4 +34,25 @@
             <column name="phone" type="text"/>
         </createTable>
     </changeSet>
+    <changeSet id="2020-01-26 add employee" author="Siim Rebane">
+        <createTable tableName="employee">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="text"/>
+            <column name="address" type="text"/>
+            <column name="phone" type="text"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2021-04-21 drop Siim tables" author="Joosep Parts">
+        <dropUniqueConstraint tableName="author" constraintName=""/>
+        <dropUniqueConstraint tableName="book"/>
+        <dropUniqueConstraint tableName="employee"/>
+        <dropTable tableName="author"/>
+        <dropTable tableName="book"/>
+        <dropTable tableName="employee"/>
+    </changeSet>
+
+
 </databaseChangeLog>

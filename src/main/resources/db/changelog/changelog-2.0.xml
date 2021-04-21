@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="21-04-2021 create initial tables" author="Joosep">
+        <createTable tableName="table_accounts">
+            <column name="account_number" type="text">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="balance" type="numeric"/>
+            <column name="locked" type="boolean" defaultValue="false"/>
+            <column name="firstname" type="text"/>
+            <column name="lastname" type="text"/>
+            <column name="password" type="text"/>
+            <column name="email" type="text"/>
+            <column name="address" type="text"/>
+        </createTable>
+        <createTable tableName="table_transfer">
+            <column name="transfer_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="from_account" type="text">
+            <constraints foreignKeyName="fk_account_number" references="table_accounts(account_number)"/>
+            </column>
+            <column name="to_account" type="text"/>
+            <column name="transfer" type="numeric"/>
+            <column name="deduction" type="numeric"/>
+            <column name="date_time" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
