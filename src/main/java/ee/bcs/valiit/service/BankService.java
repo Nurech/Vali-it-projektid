@@ -1,5 +1,6 @@
 package ee.bcs.valiit.service;
 
+import ee.bcs.valiit.ExeptionHandler.ApplicationExpetion;
 import ee.bcs.valiit.dto.AccountDTO;
 import ee.bcs.valiit.dto.TransactionDTO;
 import ee.bcs.valiit.repository.BankRepository;
@@ -37,20 +38,19 @@ public class BankService {
     }
 
 
-    public String depositMoney(AccountDTO updateBalanceReq) {
+    public void depositMoney(AccountDTO updateBalanceReq) {
         Boolean locked = bankRepository.lockCheck(updateBalanceReq.getAccountnumber());
         if (locked == true) {
-            return "Account is locked";
+            throw new ApplicationExpetion("Account is locked");
         }
-        if (updateBalanceReq.getBalance() > 0) {
-            Double currentBalance = bankRepository.getBalance(updateBalanceReq.getAccountnumber());
-            Double newBalance = currentBalance + updateBalanceReq.getBalance();
-            bankRepository.depositMoney(updateBalanceReq.getAccountnumber(), newBalance);
-            //transaction recorder
-            bankRepository.transactionRecorderAdd(updateBalanceReq);
-            return "Deposited " + updateBalanceReq.getBalance() + " to = " + updateBalanceReq.getAccountnumber() + ". New balance is = " + newBalance;
+        if (updateBalanceReq.getBalance() < 0) {
+            throw new ApplicationExpetion("Deposit can't be negative");
         }
-        return "Please add positive number. You tried adding = " + updateBalanceReq.getBalance();
+        Double currentBalance = bankRepository.getBalance(updateBalanceReq.getAccountnumber());
+        Double newBalance = currentBalance + updateBalanceReq.getBalance();
+        bankRepository.depositMoney(updateBalanceReq.getAccountnumber(), newBalance);
+        //transaction recorder
+        bankRepository.transactionRecorderAdd(updateBalanceReq);
     }
 
 

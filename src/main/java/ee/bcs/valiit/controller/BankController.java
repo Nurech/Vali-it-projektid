@@ -34,8 +34,8 @@ public class BankController {
     // DEPOSIT MONEY
     // http://localhost:8081/deposit
     @PostMapping("/deposit")
-    public String depositMoney(@RequestBody AccountDTO updateBalanceReq) {
-        return bankService.depositMoney(updateBalanceReq);
+    public void depositMoney(@RequestBody AccountDTO updateBalanceReq) {
+        bankService.depositMoney(updateBalanceReq);
     }
 
     // GET ALL
