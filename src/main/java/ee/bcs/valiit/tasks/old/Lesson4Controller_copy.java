@@ -18,7 +18,7 @@
 //    //check if account is present
 //    public  String checkIfAccountExists(String accountName) {
 //        if (accountBalanceMap.get(accountName) == null) {
-//            return "AccountHibernate not present";
+//            return "AccountDTO not present";
 //        }
 //        return "Did your thing";
 //    }
@@ -26,13 +26,13 @@
 //
 //    //CREATE ACCOUNT
 //    // http://localhost:8080/tasks/Lesson4/createAccount
-//    @PostMapping("/tasks/Lesson4/createAccount")
-//    public String createAccount(@RequestBody Lesson4 createAccountRequest) {
+//    @PostMapping("/tasks/Lesson4/CreateAccount")
+//    public String CreateAccount(@RequestBody Lesson4 createAccountRequest) {
 //        if (accountBalanceMap.get(checkIfAccountExists(createAccountRequest.getAccountName())) == null) {
 //            accountBalanceMap.put(createAccountRequest.getAccountName(), createAccountRequest.getMoney());
-//            return "AccountHibernate added = " + createAccountRequest.getAccountName() + ", with balance of = " + createAccountRequest.getMoney();
+//            return "AccountDTO added = " + createAccountRequest.getAccountName() + ", with balance of = " + createAccountRequest.getMoney();
 //        } else {
-//            return "AccountHibernate already present";
+//            return "AccountDTO already present";
 //        }
 //    }
 //
@@ -63,7 +63,7 @@
 //    @GetMapping("/tasks/Lesson4/getBalance")
 //    public String getBalance(@RequestBody Lesson4 getBalanceRequest) {
 //        if (accountBalanceMap.get(checkIfAccountExists(getBalanceRequest.getAccountName())) == null) {
-//            return "AccountHibernate = " + accountBalanceMap.get(getBalanceRequest.getAccountName());
+//            return "AccountDTO = " + accountBalanceMap.get(getBalanceRequest.getAccountName());
 //        }
 //        return "No account";
 //    }

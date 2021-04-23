@@ -1,7 +1,7 @@
 package ee.bcs.valiit.dto;
 
 
-public class AccountDTO {
+public class AccountDTOold {
 
     private String accountnumber;
     private String accountnumber2;

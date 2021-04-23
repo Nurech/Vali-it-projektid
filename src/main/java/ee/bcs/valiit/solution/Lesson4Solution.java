@@ -15,9 +15,9 @@ public class Lesson4Solution {
             String line = scanner.nextLine();
             if (line.equalsIgnoreCase("exit")){
                 break;
-            } else if(line.equalsIgnoreCase("createAccount")){
+            } else if(line.equalsIgnoreCase("CreateAccount")){
                 // TODO 1
-                // Add command: "createAccount ${accountNr}"
+                // Add command: "CreateAccount ${accountNr}"
                 // this has to store accountNr with 0 balance
                 System.out.println("Please enter account nr");
                 String accountNr = scanner.nextLine();

@@ -1,13 +1,13 @@
 package ee.bcs.valiit.service;
 
 import ee.bcs.valiit.ExeptionHandler.ApplicationExpetion;
-import ee.bcs.valiit.dto.AccountDTO;
+import ee.bcs.valiit.dto.AccountDTOold;
 import ee.bcs.valiit.dto.TransactionDTO;
-import ee.bcs.valiit.hibernate.AccountHibernate;
-import ee.bcs.valiit.hibernate.HibernateAccountRepository;
+import ee.bcs.valiit.hibernate.AccountDTO;
+import ee.bcs.valiit.hibernate.AccountREPO;
+import ee.bcs.valiit.hibernate.CreateAccount;
 import ee.bcs.valiit.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,56 +16,55 @@ import java.util.List;
 public class BankService {
 
     @Autowired
-    private NamedParameterJdbcTemplate jt;
-
-    @Autowired
     private BankRepository bankRepository;
 
     @Autowired
-    private HibernateAccountRepository hibernateAccountRepository;
+    private AccountREPO accountREPO;
 
-    public String createAccount(AccountDTO createReq) {
-        String accountNr = createReq.getAccountnumber();
-        Double balance = createReq.getBalance();
-        bankRepository.createAccount(accountNr, balance);
-        return "Account added = " + createReq.getAccountnumber() + ", with balance of = " + createReq.getBalance();
+    // TODO hibernate
+    public String createAccount(CreateAccount createReq) {
+        if (createReq.getBalance() < 0) {
+            throw new ApplicationExpetion("Deposit can't be negative");
+        }
+//        accountREPO.save(createReq);
+        return "Account added = " + createReq.getAccountNumber() + ", with balance of = " + createReq.getBalance();
     }
-
 
     public String getBalanceReq(AccountDTO balanceReq) {
-        AccountHibernate account = hibernateAccountRepository.getOne(balanceReq.getAccountnumber());
-        return "Balance of " + account.getAccountNumber() + " is = " + hibernateAccountRepository.getOne(balanceReq.getAccountnumber()).getBalance();
-       // Double balance = bankRepository.getBalance(balanceReq.getAccountnumber());
-       // return "Balance of " + balanceReq.getAccountnumber() + " is = " + balance;
+        AccountDTO account = accountREPO.getOne(balanceReq.getAccountNumber());
+        return "Balance of " + account.getAccountNumber() + " is = " + accountREPO.getOne(balanceReq.getAccountNumber()).getBalance();
     }
 
-    public List<AccountDTO> allAccounts(AccountDTO accountDTO) {
-        return bankRepository.getAllAccounts(accountDTO);
+    public List<AccountDTO> allAccounts() {
+        return accountREPO.findAll();
     }
 
 
-    public void depositMoney(AccountDTO updateBalanceReq) {
-        Boolean locked = bankRepository.lockCheck(updateBalanceReq.getAccountnumber());
+    public String depositMoney(AccountDTOold updateBalanceReq) {
+        Boolean locked = accountREPO.getOne(updateBalanceReq.getAccountnumber()).isLocked();
         if (locked == true) {
-            throw new ApplicationExpetion("AccountHibernate is locked");
+            throw new ApplicationExpetion("AccountDTO is locked");
         }
         if (updateBalanceReq.getBalance() < 0) {
             throw new ApplicationExpetion("Deposit can't be negative");
         }
-        Double currentBalance = bankRepository.getBalance(updateBalanceReq.getAccountnumber());
+        Double currentBalance = accountREPO.getOne(updateBalanceReq.getAccountnumber()).getBalance();
         Double newBalance = currentBalance + updateBalanceReq.getBalance();
+        //TODO hibernate
         bankRepository.depositMoney(updateBalanceReq.getAccountnumber(), newBalance);
         //transaction recorder
+        //TODO hibernate
         bankRepository.transactionRecorderAdd(updateBalanceReq);
+        return "Added to account = " + accountREPO.getOne(updateBalanceReq.getAccountnumber()) + "Sum of = " + accountREPO.getOne(updateBalanceReq.getAccountnumber()).getBalance();
     }
 
-
-    public String withdrawMoney(AccountDTO withdrawMoneyReq) {
+    //TODO hibernate
+    public String withdrawMoney(AccountDTOold withdrawMoneyReq) {
         Boolean locked = bankRepository.lockCheck(withdrawMoneyReq.getAccountnumber());
         if (locked == true) {
-            return "AccountHibernate is locked";
+            return "AccountDTO is locked";
         }
-        Double currentBalance = bankRepository.getBalance(withdrawMoneyReq.getAccountnumber());
+        Double currentBalance = accountREPO.getOne(withdrawMoneyReq.getAccountnumber()).getBalance();
         if (withdrawMoneyReq.getBalance() <= currentBalance) {
             Double newBalance = currentBalance - withdrawMoneyReq.getBalance();
             bankRepository.depositMoney(withdrawMoneyReq.getAccountnumber(), newBalance);
@@ -76,38 +75,40 @@ public class BankService {
         return "Can't withdraw, you don't have that much. You have = " + currentBalance;
     }
 
-
-    public String transferMoney(AccountDTO transferMoneyReq) {
-        Boolean fromLock = bankRepository.lockCheck(transferMoneyReq.getAccountnumber());
-        Boolean toLock = bankRepository.lockCheck(transferMoneyReq.getAccountnumber2());
+    //TODO hibernate
+    public String transferMoney(AccountDTOold transferReq) {
+        Boolean fromLock = bankRepository.lockCheck(transferReq.getAccountnumber());
+        Boolean toLock = bankRepository.lockCheck(transferReq.getAccountnumber2());
         if (fromLock == true) {
-            return "AccountHibernate is locked = " + transferMoneyReq.getAccountnumber();
+            return "AccountDTO is locked = " + transferReq.getAccountnumber();
         } else if (toLock == true) {
-            return "AccountHibernate is locked = " + transferMoneyReq.getAccountnumber2();
+            return "AccountDTO is locked = " + transferReq.getAccountnumber2();
         } else {
-            Double fromAccountCurrentBalance = bankRepository.getBalance(transferMoneyReq.getAccountnumber());
-            if (fromAccountCurrentBalance > transferMoneyReq.getBalance()) {
-                Double toAccountCurrentBalance = bankRepository.getBalance(transferMoneyReq.getAccountnumber2());
-                Double moneyToTransfer = transferMoneyReq.getBalance();
+            Double fromAccountCurrentBalance = accountREPO.getOne(transferReq.getAccountnumber()).getBalance();
+            if (fromAccountCurrentBalance > transferReq.getBalance()) {
+                Double toAccountCurrentBalance = accountREPO.getOne(transferReq.getAccountnumber()).getBalance();
+                Double moneyToTransfer = transferReq.getBalance();
                 Double fromNewBalance = fromAccountCurrentBalance - moneyToTransfer;
                 Double toNewBalance = toAccountCurrentBalance + moneyToTransfer;
-                bankRepository.withdrawMoney(transferMoneyReq.getAccountnumber(), fromNewBalance);
-                bankRepository.depositMoney(transferMoneyReq.getAccountnumber2(), toNewBalance);
+                bankRepository.withdrawMoney(transferReq.getAccountnumber(), fromNewBalance);
+                bankRepository.depositMoney(transferReq.getAccountnumber2(), toNewBalance);
                 //transaction recorder
-                bankRepository.transactionRecorderDeduction(transferMoneyReq);
-                bankRepository.transactionRecorderAdd(transferMoneyReq);
-                return "Transferred from " + transferMoneyReq.getAccountnumber() + " to " + transferMoneyReq.getAccountnumber2() + " sum of = " +transferMoneyReq.getBalance();
+                bankRepository.transactionRecorderDeduction(transferReq);
+                bankRepository.transactionRecorderAdd(transferReq);
+                return "Transferred from " + transferReq.getAccountnumber() + " to " + transferReq.getAccountnumber2() + " sum of = " + transferReq.getBalance();
             }
-            return "Not enough funds on = " + transferMoneyReq.getAccountnumber();
+            return "Not enough funds on = " + transferReq.getAccountnumber();
         }
     }
 
+    //TODO hibernate
     public List<TransactionDTO> transactionHistory(TransactionDTO transactionDTO) {
         return bankRepository.getAllTransactions(transactionDTO);
     }
 
+    //TODO hibernate
     public List<TransactionDTO> transactionHistoryCheck(TransactionDTO historyCheckReq) {
-                return bankRepository.transactionHistoryCheck(historyCheckReq);
+        return bankRepository.transactionHistoryCheck(historyCheckReq);
     }
 
 

@@ -1,7 +1,9 @@
 package ee.bcs.valiit.controller;
 
-import ee.bcs.valiit.dto.AccountDTO;
+import ee.bcs.valiit.dto.AccountDTOold;
 import ee.bcs.valiit.dto.TransactionDTO;
+import ee.bcs.valiit.hibernate.AccountDTO;
+import ee.bcs.valiit.hibernate.CreateAccount;
 import ee.bcs.valiit.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ public class BankController {
     // CREATE ACCOUNT
     // http://localhost:8081/createAccount
     @PostMapping("/createAccount")
-    public String createAccount(@RequestBody AccountDTO createReq) {
+    public String createAccount(@RequestBody CreateAccount createReq) {
         return bankService.createAccount(createReq);
     }
 
@@ -34,28 +36,28 @@ public class BankController {
     // DEPOSIT MONEY
     // http://localhost:8081/deposit
     @PostMapping("/deposit")
-    public void depositMoney(@RequestBody AccountDTO updateBalanceReq) {
+    public void depositMoney(@RequestBody AccountDTOold updateBalanceReq) {
         bankService.depositMoney(updateBalanceReq);
     }
 
     // GET ALL
     // http://localhost:8081/allAccounts
     @GetMapping("/allAccounts")
-    public List<AccountDTO> allAccounts(AccountDTO accountDTO) {
-        return bankService.allAccounts(accountDTO);
+    public List<AccountDTO> allAccounts() {
+        return bankService.allAccounts();
     }
 
     // WITHDRAW REQUEST
     // http://localhost:8081/withdraw
     @PostMapping("/withdraw")
-    public String withdrawMoney(@RequestBody AccountDTO withdrawMoneyReq) {
+    public String withdrawMoney(@RequestBody AccountDTOold withdrawMoneyReq) {
         return bankService.withdrawMoney(withdrawMoneyReq);
     }
 
     // TRANSFER REQUEST
     // http://localhost:8081/transfer
     @PostMapping("/transfer")
-    public String transferMoney(@RequestBody AccountDTO transferMoneyReq) {
+    public String transferMoney(@RequestBody AccountDTOold transferMoneyReq) {
         return bankService.transferMoney(transferMoneyReq);
     }
 

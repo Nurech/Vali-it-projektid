@@ -14,14 +14,14 @@ public class Lesson4Old2 {
 
 
     // TODO 1
-    // Add command: "createAccount ${accountNr}"
+    // Add command: "CreateAccount ${accountNr}"
     // this has to store accountNr with 0 balance
     public static String createAccount(String accountName, double money) {
         if (accountBalanceMap.get(checkIfAccountExists(accountName)) == null) {
             accountBalanceMap.put(accountName, money);
-            return "AccountHibernate added = " + accountName + ", with balance of = " + money;
+            return "AccountDTO added = " + accountName + ", with balance of = " + money;
         } else {
-            return "AccountHibernate already present";
+            return "AccountDTO already present";
         }
     }
 
@@ -31,7 +31,7 @@ public class Lesson4Old2 {
     public static String getBalance(String accountName) {
 
         if (accountBalanceMap.get(checkIfAccountExists(accountName)) == null) {
-            return "AccountHibernate = " + accountBalanceMap.get(accountName);
+            return "AccountDTO = " + accountBalanceMap.get(accountName);
         }
         return "No account";
     }
@@ -101,7 +101,7 @@ public class Lesson4Old2 {
     //check if account is present
     public static String checkIfAccountExists(String accountName) {
         if (accountBalanceMap.get(accountName) == null) {
-            return "AccountHibernate not present";
+            return "AccountDTO not present";
         }
         return "Did your thing";
     }

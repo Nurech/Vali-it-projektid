@@ -2,7 +2,7 @@ package ee.bcs.valiit.repository;
 
 import ee.bcs.valiit.controller.AccountRowMapper;
 import ee.bcs.valiit.controller.TransactionRowMapper;
-import ee.bcs.valiit.dto.AccountDTO;
+import ee.bcs.valiit.dto.AccountDTOold;
 import ee.bcs.valiit.dto.TransactionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,20 +19,21 @@ public class BankRepository {
     @Autowired
     private NamedParameterJdbcTemplate jt;
 
-    public void createAccount(String accountNr, Double balance) {
-        String sql = "INSERT INTO table_accounts(account_number, balance) VALUES (:account_number, :balance)";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("account_number", accountNr);
-        paramMap.put("balance", balance);
-        jt.update(sql, paramMap);
-    }
+//    public void CreateAccount(String accountNr, Double balance) {
+//        String sql = "INSERT INTO table_accounts(account_number, balance) VALUES (:account_number, :balance)";
+//        Map<String, Object> paramMap = new HashMap<>();
+//        paramMap.put("account_number", accountNr);
+//        paramMap.put("balance", balance);
+//        jt.update(sql, paramMap);
+//    }
+// TODO remove after hibernate refactor
 
-    public Double getBalance(String accountNr) {
-        String sql = "SELECT balance FROM table_accounts WHERE account_number = :account_number";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("account_number", accountNr);
-        return jt.queryForObject(sql, paramMap, Double.class);
-    }
+//    public Double getBalance(String accountNr) {
+//        String sql = "SELECT balance FROM table_accounts WHERE account_number = :account_number";
+//        Map<String, Object> paramMap = new HashMap<>();
+//        paramMap.put("account_number", accountNr);
+//        return jt.queryForObject(sql, paramMap, Double.class);
+//    }
 
     public Boolean lockCheck(String accountNr) {
         String sql = "SELECT locked FROM table_accounts WHERE account_number = :account_number";
@@ -58,10 +59,10 @@ public class BankRepository {
     }
 
 
-    public List<AccountDTO> getAllAccounts(AccountDTO accountDTO) {
+    public List<AccountDTOold> getAllAccounts(AccountDTOold accountDTOold) {
         String sql = "SELECT * FROM table_accounts";
         Map<String, Object> accountMap = new HashMap<>();
-        List<AccountDTO> rs = jt.query(sql, accountMap, new AccountRowMapper());
+        List<AccountDTOold> rs = jt.query(sql, accountMap, new AccountRowMapper());
         return rs;
     }
 
@@ -81,7 +82,7 @@ public class BankRepository {
     }
 
 
-    public void transactionRecorderDeduction(AccountDTO withdrawMoneyReq) {
+    public void transactionRecorderDeduction(AccountDTOold withdrawMoneyReq) {
         String sql = "INSERT INTO table_transfer(from_account, date_time, deduction) VALUES (:from_account, :date_time, :deduction)";
         Map<String, Object> transactionMap = new HashMap<>();
         transactionMap.put("from_account", withdrawMoneyReq.getAccountnumber());
@@ -90,7 +91,7 @@ public class BankRepository {
         jt.update(sql, transactionMap);
     }
 
-    public void transactionRecorderAdd(AccountDTO withdrawMoneyReq) {
+    public void transactionRecorderAdd(AccountDTOold withdrawMoneyReq) {
         String sql = "INSERT INTO table_transfer(from_account, to_account, date_time, transfer) VALUES (:from_account, :to_account, :date_time, :transfer)";
         Map<String, Object> transactionMap = new HashMap<>();
         transactionMap.put("from_account", withdrawMoneyReq.getAccountnumber());
