@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Table(name = "table_accounts")
 @Entity
-public class AccountDTO {
+public class AccountEntity {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private String accountNumber;
@@ -15,6 +15,7 @@ public class AccountDTO {
     private String password;
     private String email;
     private String address;
+
 
 
     public String getAccountNumber() {

@@ -19,7 +19,7 @@ public class BankRepository {
     @Autowired
     private NamedParameterJdbcTemplate jt;
 
-//    public void CreateAccount(String accountNr, Double balance) {
+//    public void AccountDAO(String accountNr, Double balance) {
 //        String sql = "INSERT INTO table_accounts(account_number, balance) VALUES (:account_number, :balance)";
 //        Map<String, Object> paramMap = new HashMap<>();
 //        paramMap.put("account_number", accountNr);

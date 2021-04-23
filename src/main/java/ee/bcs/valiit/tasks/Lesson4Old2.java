@@ -14,14 +14,14 @@ public class Lesson4Old2 {
 
 
     // TODO 1
-    // Add command: "CreateAccount ${accountNr}"
+    // Add command: "AccountDAO ${accountNr}"
     // this has to store accountNr with 0 balance
     public static String createAccount(String accountName, double money) {
         if (accountBalanceMap.get(checkIfAccountExists(accountName)) == null) {
             accountBalanceMap.put(accountName, money);
-            return "AccountDTO added = " + accountName + ", with balance of = " + money;
+            return "AccountEntity added = " + accountName + ", with balance of = " + money;
         } else {
-            return "AccountDTO already present";
+            return "AccountEntity already present";
         }
     }
 
@@ -31,7 +31,7 @@ public class Lesson4Old2 {
     public static String getBalance(String accountName) {
 
         if (accountBalanceMap.get(checkIfAccountExists(accountName)) == null) {
-            return "AccountDTO = " + accountBalanceMap.get(accountName);
+            return "AccountEntity = " + accountBalanceMap.get(accountName);
         }
         return "No account";
     }
@@ -101,7 +101,7 @@ public class Lesson4Old2 {
     //check if account is present
     public static String checkIfAccountExists(String accountName) {
         if (accountBalanceMap.get(accountName) == null) {
-            return "AccountDTO not present";
+            return "AccountEntity not present";
         }
         return "Did your thing";
     }

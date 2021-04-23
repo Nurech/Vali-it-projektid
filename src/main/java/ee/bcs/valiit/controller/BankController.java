@@ -2,14 +2,11 @@ package ee.bcs.valiit.controller;
 
 import ee.bcs.valiit.dto.AccountDTOold;
 import ee.bcs.valiit.dto.TransactionDTO;
-import ee.bcs.valiit.hibernate.AccountDTO;
-import ee.bcs.valiit.hibernate.CreateAccount;
+import ee.bcs.valiit.hibernate.AccountDAO;
+import ee.bcs.valiit.hibernate.AccountEntity;
 import ee.bcs.valiit.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,14 +19,16 @@ public class BankController {
     // CREATE ACCOUNT
     // http://localhost:8081/createAccount
     @PostMapping("/createAccount")
-    public String createAccount(@RequestBody CreateAccount createReq) {
+    @CrossOrigin
+    public String createAccount(@RequestBody AccountDAO createReq) {
         return bankService.createAccount(createReq);
     }
 
     // BALANCE REQUEST
     // http://localhost:8081/balance
     @GetMapping("/balance")
-    public String getBalance(@RequestBody AccountDTO balanceReq) {
+    @CrossOrigin
+    public String getBalance(@RequestBody AccountEntity balanceReq) {
         return bankService.getBalanceReq(balanceReq);
     }
 
@@ -43,7 +42,7 @@ public class BankController {
     // GET ALL
     // http://localhost:8081/allAccounts
     @GetMapping("/allAccounts")
-    public List<AccountDTO> allAccounts() {
+    public List<AccountEntity> allAccounts() {
         return bankService.allAccounts();
     }
 

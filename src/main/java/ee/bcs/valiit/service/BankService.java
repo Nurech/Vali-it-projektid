@@ -3,9 +3,9 @@ package ee.bcs.valiit.service;
 import ee.bcs.valiit.ExeptionHandler.ApplicationExpetion;
 import ee.bcs.valiit.dto.AccountDTOold;
 import ee.bcs.valiit.dto.TransactionDTO;
-import ee.bcs.valiit.hibernate.AccountDTO;
+import ee.bcs.valiit.hibernate.AccountDAO;
+import ee.bcs.valiit.hibernate.AccountEntity;
 import ee.bcs.valiit.hibernate.AccountREPO;
-import ee.bcs.valiit.hibernate.CreateAccount;
 import ee.bcs.valiit.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,20 +22,25 @@ public class BankService {
     private AccountREPO accountREPO;
 
     // TODO hibernate
-    public String createAccount(CreateAccount createReq) {
+    public String createAccount(AccountDAO createReq) {
         if (createReq.getBalance() < 0) {
             throw new ApplicationExpetion("Deposit can't be negative");
         }
-//        accountREPO.save(createReq);
+        AccountEntity account = new AccountEntity(createReq);
+        account.setAccountNumber(createReq.getAccountNumber());
+        account.setBalance(createReq.getBalance());
+        accountREPO.save(account);
         return "Account added = " + createReq.getAccountNumber() + ", with balance of = " + createReq.getBalance();
     }
 
-    public String getBalanceReq(AccountDTO balanceReq) {
-        AccountDTO account = accountREPO.getOne(balanceReq.getAccountNumber());
+
+    public String getBalanceReq(AccountEntity balanceReq) {
+        AccountEntity account = accountREPO.getOne(balanceReq.getAccountNumber());
         return "Balance of " + account.getAccountNumber() + " is = " + accountREPO.getOne(balanceReq.getAccountNumber()).getBalance();
     }
 
-    public List<AccountDTO> allAccounts() {
+
+    public List<AccountEntity> allAccounts() {
         return accountREPO.findAll();
     }
 
@@ -43,7 +48,7 @@ public class BankService {
     public String depositMoney(AccountDTOold updateBalanceReq) {
         Boolean locked = accountREPO.getOne(updateBalanceReq.getAccountnumber()).isLocked();
         if (locked == true) {
-            throw new ApplicationExpetion("AccountDTO is locked");
+            throw new ApplicationExpetion("AccountEntity is locked");
         }
         if (updateBalanceReq.getBalance() < 0) {
             throw new ApplicationExpetion("Deposit can't be negative");
@@ -62,7 +67,7 @@ public class BankService {
     public String withdrawMoney(AccountDTOold withdrawMoneyReq) {
         Boolean locked = bankRepository.lockCheck(withdrawMoneyReq.getAccountnumber());
         if (locked == true) {
-            return "AccountDTO is locked";
+            return "AccountEntity is locked";
         }
         Double currentBalance = accountREPO.getOne(withdrawMoneyReq.getAccountnumber()).getBalance();
         if (withdrawMoneyReq.getBalance() <= currentBalance) {
@@ -80,9 +85,9 @@ public class BankService {
         Boolean fromLock = bankRepository.lockCheck(transferReq.getAccountnumber());
         Boolean toLock = bankRepository.lockCheck(transferReq.getAccountnumber2());
         if (fromLock == true) {
-            return "AccountDTO is locked = " + transferReq.getAccountnumber();
+            return "AccountEntity is locked = " + transferReq.getAccountnumber();
         } else if (toLock == true) {
-            return "AccountDTO is locked = " + transferReq.getAccountnumber2();
+            return "AccountEntity is locked = " + transferReq.getAccountnumber2();
         } else {
             Double fromAccountCurrentBalance = accountREPO.getOne(transferReq.getAccountnumber()).getBalance();
             if (fromAccountCurrentBalance > transferReq.getBalance()) {

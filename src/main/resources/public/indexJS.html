@@ -2,30 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bank</title>
+    <title>Title</title>
 </head>
 <body>
-<section class="contact-form">
-    <form id="subscriptionForm" action="/createAccount" method="post">
+<h1>Min</h1>
+a: <input id="minA"> b: <input id="minB">
+<button id="minButton">Min</button>
+<p>
+    Vastus on: <span id="minAnswer"></span>
+</p>
+<h1>Max</h1>
+a: <input id="maxA"> b: <input id="maxB">
+<button id="maxButton">Max</button>
+<p>
+    Vastus on: <span id="maxAnswer"></span>
+</p>
+<h1>Abs</h1>
+abs: <input id="abs">
+<button id="absButton">Abs</button>
+<p>
+    Vastus on: <span id="absAnswer"></span>
+</p>
 
-    </form>
-</section>
-</body>
-<script type="text/javascript">
-    alert('Hello, world!');
-    let account_number = document.getElementById("account_number")
-    let balance = document.getElementById("account_number")
-    let account = {account_number, balance}
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8081/createAccount',
-        data: JSON.stringify(account),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data)
+<script>
+
+    let minA = document.getElementById("minA");
+    let minB = document.getElementById("minB");
+    let minButton = document.getElementById("minButton");
+    minButton.onclick = function min() {
+        let minAnswer = document.getElementById("minAnswer");
+        let a = minA.value;
+        let b = minB.value;
+        if (Number(a) < Number(b)) {
+            minAnswer.innerText = a;
+        } else {
+            minAnswer.innerText = b;
         }
-    });
-</script>
+    }
 
+    let maxA = document.getElementById("maxA");
+    let maxB = document.getElementById("maxB");
+    let maxButton = document.getElementById("maxButton");
+    maxButton.onclick = function max() {
+        let maxAnswer = document.getElementById("maxAnswer");
+        let a = maxA.value;
+        let b = maxB.value;
+        if (Number(a) > Number(b)) {
+            maxAnswer.innerText = a;
+        } else {
+            maxAnswer.innerText = b;
+        }
+    }
+
+    let absA = document.getElementById("abs");
+    let absButton = document.getElementById("absButton");
+    absButton.onclick = function abs() {
+        let absAnswer = document.getElementById("absAnswer");
+        let a = absA.value;
+        if (Number(a) < 0) {
+            absAnswer.innerText = -a;
+        } else {
+            absAnswer.innerText = a;
+        }
+    }
+
+
+</script>
+</body>
 </html>

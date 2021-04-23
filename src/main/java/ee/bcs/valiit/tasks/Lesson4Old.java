@@ -57,7 +57,7 @@ public class Lesson4Old {
     }
 
     // TODO 1
-    // Add command: "CreateAccount ${accountNr}"
+    // Add command: "AccountDAO ${accountNr}"
     // this has to store accountNr with 0 balance
     public static HashMap createAccount() {
         out.println("Type exit to go back.");
@@ -71,7 +71,7 @@ public class Lesson4Old {
                     double money = Double.parseDouble(scanner.nextLine());
                     accountBalanceMap.put(account, money);
                 } else {
-                    out.println("AccountDTO already present mate.");
+                    out.println("AccountEntity already present mate.");
                 }
             }
         return accountBalanceMap;
@@ -87,7 +87,7 @@ public class Lesson4Old {
         out.print("What account balance to check?: ");
         String account = scanner.next();
         if (accountBalanceMap.get(checkIfAccountExists(account)) != null) {
-            out.println("AccountDTO: " + account + " has " + accountBalanceMap.get(account));
+            out.println("AccountEntity: " + account + " has " + accountBalanceMap.get(account));
         }
     }
 
@@ -196,7 +196,7 @@ public class Lesson4Old {
     //print all assets
     public static void allBankAssets() {
         for (String i : accountBalanceMap.keySet()) {
-            System.out.println("AccountDTO: " + i + " Money: " + accountBalanceMap.get(i));
+            System.out.println("AccountEntity: " + i + " Money: " + accountBalanceMap.get(i));
         }
     }
 
