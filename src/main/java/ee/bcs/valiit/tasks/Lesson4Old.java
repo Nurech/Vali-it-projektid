@@ -71,7 +71,7 @@ public class Lesson4Old {
                     double money = Double.parseDouble(scanner.nextLine());
                     accountBalanceMap.put(account, money);
                 } else {
-                    out.println("Account already present mate.");
+                    out.println("AccountHibernate already present mate.");
                 }
             }
         return accountBalanceMap;
@@ -87,7 +87,7 @@ public class Lesson4Old {
         out.print("What account balance to check?: ");
         String account = scanner.next();
         if (accountBalanceMap.get(checkIfAccountExists(account)) != null) {
-            out.println("Account: " + account + " has " + accountBalanceMap.get(account));
+            out.println("AccountHibernate: " + account + " has " + accountBalanceMap.get(account));
         }
     }
 
@@ -196,7 +196,7 @@ public class Lesson4Old {
     //print all assets
     public static void allBankAssets() {
         for (String i : accountBalanceMap.keySet()) {
-            System.out.println("Account: " + i + " Money: " + accountBalanceMap.get(i));
+            System.out.println("AccountHibernate: " + i + " Money: " + accountBalanceMap.get(i));
         }
     }
 

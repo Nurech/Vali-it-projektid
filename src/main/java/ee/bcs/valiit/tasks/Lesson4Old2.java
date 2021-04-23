@@ -19,9 +19,9 @@ public class Lesson4Old2 {
     public static String createAccount(String accountName, double money) {
         if (accountBalanceMap.get(checkIfAccountExists(accountName)) == null) {
             accountBalanceMap.put(accountName, money);
-            return "Account added = " + accountName + ", with balance of = " + money;
+            return "AccountHibernate added = " + accountName + ", with balance of = " + money;
         } else {
-            return "Account already present";
+            return "AccountHibernate already present";
         }
     }
 
@@ -31,7 +31,7 @@ public class Lesson4Old2 {
     public static String getBalance(String accountName) {
 
         if (accountBalanceMap.get(checkIfAccountExists(accountName)) == null) {
-            return "Account = " + accountBalanceMap.get(accountName);
+            return "AccountHibernate = " + accountBalanceMap.get(accountName);
         }
         return "No account";
     }
@@ -101,7 +101,7 @@ public class Lesson4Old2 {
     //check if account is present
     public static String checkIfAccountExists(String accountName) {
         if (accountBalanceMap.get(accountName) == null) {
-            return "Account not present";
+            return "AccountHibernate not present";
         }
         return "Did your thing";
     }
