@@ -5,35 +5,31 @@
     <title>Bank</title>
 </head>
 <body>
-<section class="contact-form">
-    <form id="subscriptionForm" action="/createAccount" method="post">
-        <div style="text-align: center">
-            account number: <input id="account_number" account_number="account_number" type="text"/>
-            <br>
-            balance: <input id="balance" balance="balance" type="number"/>
-            <br>
-            send: <input id="submit" value="submit" type="submit"/>
-        </div>
-    </form>
-</section>
+account number: <input id="account_number" type="text"/>
+<br>
+balance: <input id="balance"type="number"/>
+<br>
+send: <input id="submit" type="submit"/>
 </body>
 <script type="text/javascript">
-    alert('Hello, world!');
-    let account_number = document.getElementById("account_number")
-    let balance = document.getElementById("account_number")
-    let account = {account_number, balance}
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8081/createAccount',
-        data: JSON.stringify(account),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data)
+    let accountNumber = document.getElementById("accountNumber");
+    let balance = document.getElementById("balance");
+    let submit = document.getElementById("submit");
+    submit.onclick = function () {
+        let requestObject = {
+            'accountNumber': accountNumber.value,
+            'balance': balance.value
         }
-    });
-let url =
-    fetch()
+        let url = "http://localhost:8081/createAccount";
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration);
+    }
 </script>
 
 </html>

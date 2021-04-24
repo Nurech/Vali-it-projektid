@@ -21,12 +21,11 @@ public class BankService {
     @Autowired
     private AccountREPO accountREPO;
 
-    // TODO hibernate
     public String createAccount(AccountDAO createReq) {
         if (createReq.getBalance() < 0) {
             throw new ApplicationExpetion("Deposit can't be negative");
         }
-        AccountEntity account = new AccountEntity(createReq);
+        AccountEntity account = new AccountEntity();
         account.setAccountNumber(createReq.getAccountNumber());
         account.setBalance(createReq.getBalance());
         accountREPO.save(account);
@@ -38,7 +37,6 @@ public class BankService {
         AccountEntity account = accountREPO.getOne(balanceReq.getAccountNumber());
         return "Balance of " + account.getAccountNumber() + " is = " + accountREPO.getOne(balanceReq.getAccountNumber()).getBalance();
     }
-
 
     public List<AccountEntity> allAccounts() {
         return accountREPO.findAll();

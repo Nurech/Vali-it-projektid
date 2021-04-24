@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Entity
 public class AccountEntity {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    //auto increment not ID
+    //@GeneratedValue (strategy = GenerationType.IDENTITY)
     private String accountNumber;
     private double balance;
     private boolean locked;
@@ -15,8 +16,6 @@ public class AccountEntity {
     private String password;
     private String email;
     private String address;
-
-
 
     public String getAccountNumber() {
         return accountNumber;
