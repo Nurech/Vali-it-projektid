@@ -1,17 +1,17 @@
-package ee.bcs.valiit.dto;
+package ee.bcs.valiit.hibernate;
 
 
-public class TransactionDTO {
+public class TransactionDAO {
 
     private String from_account;
     private String to_account;
-    private Object date_time;
     private double transfer;
     private double deduction;
+    private Object date_time;
 
     @Override
     public String toString() {
-        return "TransactionDTO{" +
+        return "TransactionDAO{" +
                 "from_account='" + from_account + '\'' +
                 ", to_account='" + to_account + '\'' +
                 ", date_time=" + date_time +

@@ -3,7 +3,7 @@ package ee.bcs.valiit.repository;
 import ee.bcs.valiit.controller.AccountRowMapper;
 import ee.bcs.valiit.controller.TransactionRowMapper;
 import ee.bcs.valiit.dto.AccountDTOold;
-import ee.bcs.valiit.dto.TransactionDTO;
+import ee.bcs.valiit.hibernate.TransactionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -66,18 +66,18 @@ public class BankRepository {
         return rs;
     }
 
-    public List<TransactionDTO> getAllTransactions(TransactionDTO transactionDTO) {
+    public List<TransactionDAO> getAllTransactions(TransactionDAO transactionDAO) {
         String sql = "SELECT * FROM table_transfer";
         Map<String, Object> transactionMap = new HashMap<>();
-        List<TransactionDTO> rs = jt.query(sql, transactionMap, new TransactionRowMapper());
+        List<TransactionDAO> rs = jt.query(sql, transactionMap, new TransactionRowMapper());
         return rs;
     }
 
-    public List<TransactionDTO> transactionHistoryCheck(TransactionDTO historyCheckReq) {
+    public List<TransactionDAO> transactionHistoryCheck(TransactionDAO historyCheckReq) {
         String sql = "SELECT * FROM table_transfer WHERE from_account = :from_account";
         Map<String, Object> transactionMap = new HashMap<>();
         transactionMap.put("from_account", historyCheckReq.getFrom_account());
-        List<TransactionDTO> rs = jt.query(sql, transactionMap, new TransactionRowMapper());
+        List<TransactionDAO> rs = jt.query(sql, transactionMap, new TransactionRowMapper());
         return rs;
     }
 

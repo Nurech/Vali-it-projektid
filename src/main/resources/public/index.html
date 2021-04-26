@@ -2,20 +2,129 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bank</title>
+    <title>Bank Manager</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-account number: <input id="account_number" type="text"/>
+<h2>Bank Options:</h2>
+Account number: <input id="accountNumber">
+Balance: <input id="balance">
+Transfer to?: <input id="accountNumber2">
 <br>
-balance: <input id="balance"type="number"/>
+<button id="createAccountButton">Create account</button>
 <br>
-send: <input id="submit" type="submit"/>
-</body>
-<script type="text/javascript">
+<button id="getBalanceButton">Get Balance</button>
+<br>
+<button id="depositMoney">Deposit Money</button>
+<br>
+<button id="withdrawMoney">Withdraw Money</button>
+<br>
+<button id="transferMoney">Transfer Money</button>
+<br>
+<button id="getAllAccounts">Get All Accounts</button>
+<br>
+<br>
+<button id="getAllTransaction">Get All Recorded Transactions</button>
+<br>
+<button id="transactionCheck">Get All Transactions from Account number</button>
+<br>
+
+<script>
+    // Values
     let accountNumber = document.getElementById("accountNumber");
     let balance = document.getElementById("balance");
-    let submit = document.getElementById("submit");
-    submit.onclick = function () {
+    let accountNumber2 = document.getElementById("accountNumber2");
+
+    // Action buttons
+    let createButton = document.getElementById("createAccountButton");
+    let getBalanceButton = document.getElementById("getBalanceButton");
+    let depositMoney = document.getElementById("depositMoney");
+    let withdrawMoney = document.getElementById("withdrawMoney");
+    let transferMoney = document.getElementById("transferMoney");
+    let getAllAccounts = document.getElementById("getAllAccounts");
+    let getAllTransaction = document.getElementById("getAllTransaction");
+    let transactionCheck = document.getElementById("transactionCheck");
+
+    getAllTransaction.onclick = function () {
+        let url = "http://localhost:8081/history";
+        let configuration = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+    transactionCheck.onclick = function () {
+        fetch("http://localhost:8081/historyCheck/" + accountNumber.value) // GET WITH PATHVARIABLE
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+    getAllAccounts.onclick = function () {
+        let url = "http://localhost:8081/allAccounts";
+        let configuration = {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+    transferMoney.onclick = function () {
+        let requestObject = {
+            'accountNumber': accountNumber.value,
+            'accountNumber2': accountNumber2.value,
+            'balance': balance.value
+        }
+        let url = "http://localhost:8081/transfer";
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+    withdrawMoney.onclick = function () {
+        let requestObject = {
+            'accountNumber': accountNumber.value,
+            'balance': balance.value
+        }
+        let url = "http://localhost:8081/withdraw";
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+    createButton.onclick = function () {
         let requestObject = {
             'accountNumber': accountNumber.value,
             'balance': balance.value
@@ -28,8 +137,41 @@ send: <input id="submit" type="submit"/>
             },
             body: JSON.stringify(requestObject)
         }
-        fetch(url, configuration);
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
     }
-</script>
 
+    getBalanceButton.onclick = function () {
+        fetch("http://localhost:8081/balance/" + accountNumber.value) // GET WITH PATHVARIABLE
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+    depositMoney.onclick = function () {
+        let requestObject = {
+            'accountNumber': accountNumber.value,
+            'balance': balance.value
+        }
+        let url = "http://localhost:8081/deposit";
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function(response){
+                alert(response)
+            })
+    }
+
+</script>
+</body>
 </html>
