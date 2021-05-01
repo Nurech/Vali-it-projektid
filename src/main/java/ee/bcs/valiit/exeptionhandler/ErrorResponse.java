@@ -1,4 +1,4 @@
-package ee.bcs.valiit.ExeptionHandler;
+package ee.bcs.valiit.exeptionhandler;
 
 public class ErrorResponse {
     private String message;

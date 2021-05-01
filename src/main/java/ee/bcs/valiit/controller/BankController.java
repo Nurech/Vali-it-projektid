@@ -1,17 +1,22 @@
 package ee.bcs.valiit.controller;
 
-import ee.bcs.valiit.hibernate.*;
+import ee.bcs.valiit.hibernate.AccountDAO;
+import ee.bcs.valiit.hibernate.AccountEntity;
+import ee.bcs.valiit.hibernate.TransactionEntity;
+import ee.bcs.valiit.hibernate.TransferDAO;
 import ee.bcs.valiit.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("api")
 @RestController
 public class BankController {
 
     @Autowired
     private BankService bankService;
+
 
     // CREATE ACCOUNT
     // http://localhost:8081/createAccount
@@ -32,6 +37,7 @@ public class BankController {
     // DEPOSIT MONEY
     // http://localhost:8081/deposit
     @PostMapping("/deposit")
+    @CrossOrigin
     public String depositMoney(@RequestBody AccountDAO updateBalanceReq) {
         return bankService.depositMoney(updateBalanceReq);
     }
@@ -39,6 +45,7 @@ public class BankController {
     // GET ALL
     // http://localhost:8081/allAccounts
     @GetMapping("/allAccounts")
+    @CrossOrigin
     public List<AccountEntity> allAccounts() {
         return bankService.allAccounts();
     }
@@ -46,6 +53,7 @@ public class BankController {
     // WITHDRAW REQUEST
     // http://localhost:8081/withdraw
     @PostMapping("/withdraw")
+    @CrossOrigin
     public String withdrawMoney(@RequestBody AccountDAO withdrawMoneyReq) {
         return bankService.withdrawMoney(withdrawMoneyReq);
     }
@@ -53,6 +61,7 @@ public class BankController {
     // TRANSFER REQUEST
     // http://localhost:8081/transfer
     @PostMapping("/transfer")
+    @CrossOrigin
     public String transferMoney(@RequestBody TransferDAO transferMoneyReq) {
         return bankService.transferMoney(transferMoneyReq);
     }

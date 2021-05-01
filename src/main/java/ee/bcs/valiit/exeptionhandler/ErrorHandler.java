@@ -1,4 +1,4 @@
-package ee.bcs.valiit.ExeptionHandler;
+package ee.bcs.valiit.exeptionhandler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ public class ErrorHandler {
     @ExceptionHandler(ApplicationExpetion.class)
     public ResponseEntity<Object> handleSampleException(ApplicationExpetion e){
         return new ResponseEntity<>(new ErrorResponse(e.getMessage(), 400),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Exception.class)
@@ -20,4 +20,12 @@ public class ErrorHandler {
         return new ResponseEntity<>(new ErrorResponse("Internal Error", 500),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Object> wrongPasswordExeption(Exception e){
+//        e.printStackTrace();
+//        return new ResponseEntity<>(new ErrorResponse("Wrong password", 400),
+//                HttpStatus.I_AM_A_TEAPOT);
+//    }
+
 }

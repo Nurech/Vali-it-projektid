@@ -1,6 +1,6 @@
 package ee.bcs.valiit.service;
 
-import ee.bcs.valiit.ExeptionHandler.ApplicationExpetion;
+import ee.bcs.valiit.exeptionhandler.ApplicationExpetion;
 import ee.bcs.valiit.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,7 @@ public class BankService {
 
 
     public String getBalanceReq(String accountNr) {
+
         AccountEntity account = accountREPO.getOne(accountNr);
         return "Balance of " + account.getAccountNumber() + " is = " + accountREPO.getOne(account.getAccountNumber()).getBalance();
     }

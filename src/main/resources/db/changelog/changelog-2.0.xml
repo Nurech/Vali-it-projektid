@@ -31,4 +31,13 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="29-04-2021 near user table for password" author="Joosep">
+        <createTable tableName="table_users">
+            <column name="username" type="text">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="password" type="text"/>
+        </createTable>
+</changeSet>
+
 </databaseChangeLog>
